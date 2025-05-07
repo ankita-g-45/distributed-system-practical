@@ -46,3 +46,6 @@ public class BerkeleyClockSync {
         System.out.println("Master clock: " + masterClock);
     }
 }
+// System clocks: 10 12 13 11 14 
+// Updated system clocks: 10 12 13 11 14 
+// Master clock: 12
