@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class BerkeleyClockSync {
     public static void main(String[] args) {
-        int[] systemClocks = {10, 12, 13, 11, 14};
+        int[] systemClocks = {10, 12, 13, 11, 14}; // Array of system clocks
         int masterClock = 0;
 
         // Print the initial system clocks
@@ -12,36 +12,37 @@ public class BerkeleyClockSync {
         }
         System.out.println();
 
-        // Calculate average clock time (including master)
+        // Calculate the average system clock
         int sum = 0;
         for (int clock : systemClocks) {
             sum += clock;
         }
         int averageClock = sum / systemClocks.length;
 
-        // Calculate time difference for each clock
+        // Store the time differences of each clock from the average
         ArrayList<Integer> timeDifferences = new ArrayList<>();
         for (int clock : systemClocks) {
             timeDifferences.add(averageClock - clock);
         }
 
-        // Print time differences (optional, shows calculation logic)
-        System.out.print("Time differences: ");
-        for (int diff : timeDifferences) {
-            System.out.print(diff + " ");
+        // Calculate the time adjustment for the master clock
+        int timeAdjustment = 0;
+        for (int difference : timeDifferences) {
+            timeAdjustment += difference;
         }
-        System.out.println();
+        timeAdjustment /= timeDifferences.size();  // Average time difference
 
-        // Update each system clock based on time difference
+        // Update the master clock based on the calculated time adjustment
+        masterClock = averageClock - timeAdjustment;
+
+        // Print the updated system clocks
         System.out.print("Updated system clocks: ");
-        for (int i = 0; i < systemClocks.length; i++) {
-            systemClocks[i] += timeDifferences.get(i);
-            System.out.print(systemClocks[i] + " ");
+        for (int clock : systemClocks) {
+            System.out.print((clock - timeAdjustment) + " ");
         }
         System.out.println();
 
-        // Set master clock to average
-        masterClock = averageClock;
+        // Print the final master clock time
         System.out.println("Master clock: " + masterClock);
     }
 }
